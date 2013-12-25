@@ -1,0 +1,1 @@
+python drcontrol.py -d DAE000OP -r3 -c off
