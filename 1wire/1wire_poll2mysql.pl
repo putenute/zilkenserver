@@ -53,7 +53,7 @@ my $db_user     = "dt_logger";
 my $db_pass     = "lololo";
 
 # The DigiTemp Configuration file to use
-my $digitemp_rcfile = "/var/1wire/perl/digitemp.cfg";
+my $digitemp_rcfile = "/var/1wire/digitemp.cfg";
 my $digitemp_binary = "/usr/bin/digitemp_DS9097U";
 
 
