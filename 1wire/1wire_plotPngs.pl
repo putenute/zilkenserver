@@ -47,7 +47,7 @@ my $maxDate =$sortedTimes[$#sortedTimes];
 my $minTemp = 30;
 my $maxTemp = 0,
 my $numEntries = 0;
-my $csvFilename ='temp_all.dat';
+my $csvFilename ='/tmp/temp_all.dat';
 open (CSV, ">$csvFilename");
 foreach my $time (@sortedTimes){
 	print CSV "$time,";
@@ -65,16 +65,18 @@ foreach my $time (@sortedTimes){
 	$numEntries++;
 }	
 close CSV;
-$maxTemp = 40;
+#$maxTemp = 40;
 	
 #2. write gnuplot file for csv file	
-my $gnuplotFilename="temp_all.gp";
-my $pngFilename = "temp_all.png";
+my $gnuplotFilename="/tmp/temp_all.gp";
+my $pngFilename = "/tmp/temp_all.png";
 open (GNUPLOT, ">$gnuplotFilename");
+print GNUPLOT 'set key out vert'."\n";
+print GNUPLOT 'set key right top'."\n";
 print GNUPLOT 'set datafile separator ","'."\n";
 print GNUPLOT 'set xdata time'."\n";
 print GNUPLOT 'set timefmt "%Y-%m-%d %H:%M:%S"'."\n";
-print GNUPLOT 'set format x "%d/%h%H:%M"'."\n";
+print GNUPLOT 'set format x "%d%h \n %H:%M"'."\n";
 print GNUPLOT 'set xrange [ "'.$minDate.'" : "'.$maxDate.'" ]'."\n";
 print GNUPLOT '#set autoscale y '."\n";
 print GNUPLOT 'set yrange [ '.($minTemp-2).' : '.($maxTemp+2).' ]'."\n";
@@ -93,7 +95,7 @@ print GNUPLOT 'set style fill solid border -1'."\n";
 print GNUPLOT 'set style line 1 lt 2 lw 1'."\n";
 print GNUPLOT 'set pointsize .2'."\n";
 print GNUPLOT 'set sample 45'."\n";
-print GNUPLOT 'set terminal png size 1024,600'."\n";
+print GNUPLOT 'set terminal png size 1500,600'."\n";
 print GNUPLOT 'set terminal png'."\n";
 my $plotString = 'plot '; 
 my $csvIndex=2;
@@ -138,7 +140,7 @@ foreach my $sensor (keys %$tempBySensors){
 	#---------------------------------------------------------
 	#1. write csv file with sorted times	
 	#---------------------------------------------------------
-	my $csvFilename ='temp'.$sensorCount.'.dat';
+	my $csvFilename ='/tmp/temp'.$sensorCount.'.dat';
 	open (CSV, ">$csvFilename");
 	my $numEntries = 0;
 	my @unsortedTimes1 = keys %{$tempBySensors->{$sensor}};
@@ -159,13 +161,13 @@ foreach my $sensor (keys %$tempBySensors){
 	#---------------------------------------------------------
 	#2. write gnuplot file for csv file	
 	#---------------------------------------------------------
-	my $gnuplotFilename="temp".$sensorCount.".gp";
-	my $pngFilename = "temp".$sensorCount.".png";
+	my $gnuplotFilename="/tmp/temp".$sensorCount.".gp";
+	my $pngFilename = "/tmp/temp".$sensorCount.".png";
 	open (GNUPLOT, ">$gnuplotFilename");
 	print GNUPLOT 'set datafile separator ","'."\n";
 	print GNUPLOT 'set xdata time'."\n";
 	print GNUPLOT 'set timefmt "%Y-%m-%d %H:%M:%S"'."\n";
-	print GNUPLOT 'set format x "%d %h%H:%M"'."\n";
+	print GNUPLOT 'set format x "%d%h \n %H:%M"'."\n";
 	print GNUPLOT 'set xrange [ "'.$minDate1.'" : "'.$maxDate1.'" ]'."\n";
 	print GNUPLOT '#set autoscale y '."\n";
 	print GNUPLOT 'set yrange [ '.($minTemp-2).' : '.($maxTemp+2).' ]'."\n";

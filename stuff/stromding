@@ -1,0 +1,2 @@
+# MIN   HOUR   MDAY  MON  DOW   COMMAND 
+*/10 * * * * root uvccapture -m && mv snap.jpg /var/www/img/

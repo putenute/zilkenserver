@@ -2,7 +2,7 @@ set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H:%M:%S"
 set format x "%d %h%H:%M"
-set xrange [ "2013-12-26 21:46:41" : "2013-12-26 21:58:34" ]
+set xrange [ "2013-12-26 21:46:41" : "2013-12-26 22:15:05" ]
 #set autoscale y 
 set yrange [ 13.69 : 17.69 ]
 set ytics out mirror 2

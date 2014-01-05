@@ -2,12 +2,12 @@ set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H:%M:%S"
 set format x "%d %h%H:%M"
-set xrange [ "2013-12-26 21:46:42" : "2013-12-26 21:58:35" ]
+set xrange [ "2013-12-26 21:46:42" : "2013-12-26 22:15:06" ]
 #set autoscale y 
-set yrange [ 14.62 : 18.62 ]
+set yrange [ 14.62 : 18.69 ]
 set ytics out mirror 2
 set ylabel "Grad Celsius"
-set y2range [ 14.62 : 18.62 ]
+set y2range [ 14.62 : 18.69 ]
 set y2tics out mirror 2
 set y2label "Grad Celsius"
 set mxtics 4

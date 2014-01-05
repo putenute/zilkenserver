@@ -85,26 +85,3 @@ for (( i=0;i<$CHECKOUTS;i++)); do
     CHECKSUM=$(( $CHECKSUM + ${GZIPCHECK[${i}]} ));
 done 
 
-### If all files check out, delete the oldest dir ###
-if [ "$CHECKSUM" == "$CHECKOUTS" ]; then
-    echo "All files checked out ok. Deleting oldest dir.";
-    ## Check if Rotation is true ###
-    if [ "$DAYS" -ge $ROTATION ]; then
-        rm -rf $STORAGEDIR/$OLDESTDIR;
-        if [ "$?" = "0" ]; then
-            echo "$OLDESTDIR deleted."
-        else
-            ### Error message with listing of all dirs ###
-            echo "Couldn't delete oldest dir.";
-            echo "Contents of current Backup:";
-            echo " ";
-            echo $DIRLIST;
-        fi
-    else
-        :
-    fi
-else
-    echo "Dispatching Karl, he's an Expert";
-    ### Send mail with contents of logfile ###
-    #mail -s "Backuplog" mail@domain.tld < /temp/backuplog.txt;
-fi

@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template -->
     <link href="carousel.css" rel="stylesheet">
+
   </head>
 <!-- NAVBAR
 ================================================== -->
@@ -68,8 +69,52 @@
 <div class="row">
 <div class="col-lg-4">
 <br><br><br><br>
-<h2>Aktuelle temperaturen aus den Bettakomben</h2>
-<a href="#"><img src="img/stromding.jpg" border="1" alt="BILD"></a>
+
+
+
+<h3>Heizung f&uuml;r Wasserwechsel-Tonne </h3>
+
+<?php
+
+if(isset($_POST['1_on'])){
+$state = exec("python /var/www/relais/drcontrol.py -d DAE000OP -r1 -c on");
+} 
+
+if(isset($_POST['1_off'])){
+$state = exec("python /var/www/relais/drcontrol.py -d DAE000OP -r1 -c off");
+} 
+
+
+
+$state = exec("python /var/www/relais/drcontrol.py -d DAE000OP -r1 -c state");
+
+if ( $state == "OFF") 
+{
+  echo "Wassertonnen-Heizung ist aus. \n";
+  echo '<form action="" method="post">';
+  echo '  <button class="heizungsbutton" type="submit" name="1_on">Heizung anschalten</button>';
+  echo '</form> ';
+
+ 
+}
+elseif ( $state == "ON")
+ {
+  echo "Wassertonnen-Heizung ist an. \n";
+  echo '<form action="" method="post">';
+  echo '  <button class="heizungsbutton" type="submit" name="1_off">Heizung ausschalten</button>';
+  echo '</form> ';
+  }
+else
+  {
+  echo "UNBEKANTER FEHLER:  $state \n";
+  }
+
+
+?>
+<br></br><br></br>
+
+
+<h3>Aktuelle temperaturen aus den Bettakomben</h3>
 <a href="#"><img src="img/temp_all.png" border="1" alt="BILD"></a>
 <a href="#"><img src="img/temp1.png" border="1" alt="BILD1"></a>
 <a href="#"><img src="img/temp2.png" border="1" alt="BILD2"></a>
@@ -78,6 +123,17 @@
 <a href="#"><img src="img/temp5.png" border="1" alt="BILD5"></a>
 <a href="#"><img src="img/temp6.png" border="1" alt="BILD6"></a>
 <a href="#"><img src="img/temp7.png" border="1" alt="BILD7"></a>
+<a href="#"><img src="img/temp8.png" border="1" alt="BILD8"></a>
+<a href="#"><img src="img/temp9.png" border="1" alt="BILD9"></a>
+<a href="#"><img src="img/temp10.png" border="1" alt="BILD10"></a>
+<a href="#"><img src="img/temp11.png" border="1" alt="BILD11"></a>
+<a href="#"><img src="img/temp12.png" border="1" alt="BILD12"></a>
+
+
+
+<br></br><br></br>
+<a href="#"><img src="img/snap.jpg" border="1" alt="BILD"></a>
+
 </div>
 </div>
 

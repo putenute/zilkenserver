@@ -7116,3 +7116,52 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+.heizungsbutton { 
+  color: #ffffff; 
+  background-color: #8C2950; 
+  border-color: #3B3752; 
+} 
+ 
+.heizungsbutton:hover, 
+.heizungsbutton:focus, 
+.heizungsbutton:active, 
+.heizungsbutton.active, 
+.open .dropdown-toggle.heizungsbutton { 
+  color: #ffffff; 
+  background-color: #E01979; 
+  border-color: #3B3752; 
+} 
+ 
+.heizungsbutton:active, 
+.heizungsbutton.active, 
+.open .dropdown-toggle.heizungsbutton { 
+  background-image: none; 
+} 
+ 
+.heizungsbutton.disabled, 
+.heizungsbutton[disabled], 
+fieldset[disabled] .heizungsbutton, 
+.heizungsbutton.disabled:hover, 
+.heizungsbutton[disabled]:hover, 
+fieldset[disabled] .heizungsbutton:hover, 
+.heizungsbutton.disabled:focus, 
+.heizungsbutton[disabled]:focus, 
+fieldset[disabled] .heizungsbutton:focus, 
+.heizungsbutton.disabled:active, 
+.heizungsbutton[disabled]:active, 
+fieldset[disabled] .heizungsbutton:active, 
+.heizungsbutton.disabled.active, 
+.heizungsbutton[disabled].active, 
+fieldset[disabled] .heizungsbutton.active { 
+  background-color: #8C2950; 
+  border-color: #3B3752; 
+} 
+ 
+.heizungsbutton .badge { 
+  color: #8C2950; 
+  background-color: #ffffff; 
+}
+
+
