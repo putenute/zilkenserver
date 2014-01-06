@@ -64,6 +64,7 @@ my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass")
           or die "I cannot connect to dbi:mysql:$db_name as $db_user - $DBI::errstr\n";
 
 
+
 # Gather information from DigiTemp
 # Read the output from digitemp
 # Output in form SerialNumber<SPACE>Temperature in Fahrenheit
@@ -114,3 +115,5 @@ if ($temp ne ""){
 }
 
 $dbh->disconnect;
+
+system ("chmod a+rw  /dev/bus/usb/005/*");

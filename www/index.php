@@ -115,8 +115,57 @@ else
 
 
 <h3>Aktuelle temperaturen aus den Bettakomben</h3>
+
+<?php
+$con=mysqli_connect("localhost","dt_logger","lololo","digitemp");
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
+
+echo '<table border="1">';
+echo '<tr>';
+echo '<th>Sensor</th>';
+echo '<th>Temperatur</th>';
+echo '<th>Letzte Messung</th>';
+echo '</tr>';
+
+$result = mysqli_query($con,"SELECT * FROM sensors order by name asc");
+
+while($row = mysqli_fetch_array($result))
+  {
+	$lasttime= "";
+ 	$lasttemp="";
+	$serial = $row['serial'];
+	$name =$row['name'];
+	$result2 = mysqli_query($con,'SELECT * FROM digitemp where SerialNumber = "'.$serial.'" order by time desc limit 1');
+	while($row2 = mysqli_fetch_array($result2))
+	{
+	  $lasttime=  $row2['time'];
+ 	  $lasttemp= $row2['Temp'];
+		
+	}
+
+
+       echo '<tr>';
+        echo '<td> '.$name.'</td>';
+       echo '<td> '.$lasttemp.' &deg;C</td>';
+       echo '<td> '.$lasttime.'</td>';
+      echo '</tr>';
+  }
+  echo '</table>';
+
+mysqli_close($con);
+?>
+
+
 <a href="#"><img src="img/temp_all.png" border="1" alt="BILD"></a>
-<a href="#"><img src="img/temp1.png" border="1" alt="BILD1"></a>
+
+
+
+<a name="1" href="#"><img src="img/temp1.png" border="1" alt="BILD1"></a>
 <a href="#"><img src="img/temp2.png" border="1" alt="BILD2"></a>
 <a href="#"><img src="img/temp3.png" border="1" alt="BILD3"></a>
 <a href="#"><img src="img/temp4.png" border="1" alt="BILD4"></a>

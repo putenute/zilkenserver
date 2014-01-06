@@ -161,8 +161,8 @@ foreach my $sensor (keys %$tempBySensors){
 	#---------------------------------------------------------
 	#2. write gnuplot file for csv file	
 	#---------------------------------------------------------
-	my $gnuplotFilename="/tmp/temp".$sensorCount.".gp";
-	my $pngFilename = "/tmp/temp".$sensorCount.".png";
+	my $gnuplotFilename="/tmp/".$sensor.".gp";
+	my $pngFilename = "/tmp/".$sensor.".png";
 	open (GNUPLOT, ">$gnuplotFilename");
 	print GNUPLOT 'set datafile separator ","'."\n";
 	print GNUPLOT 'set xdata time'."\n";
