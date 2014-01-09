@@ -22,6 +22,9 @@
     <!-- Custom styles for this template -->
     <link href="carousel.css" rel="stylesheet">
 
+<script type="text/javascript" src="/js/jquery-latest.js"></script> 
+<script type="text/javascript" src="/js/jquery.tablesorter.js"></script> 
+
   </head>
 <!-- NAVBAR
 ================================================== -->
@@ -38,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Project name</a>
+              <a class="navbar-brand" href="#">Bettakomben</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -111,10 +114,12 @@ else
 
 
 ?>
-<br></br><br></br>
+
+<h3>Aktueller Stromverbrauch in den Bettakomben</h3>
+<a href="#"><img src="img/snap.jpg" border="5" alt="BILD"></a>Watt
 
 
-<h3>Aktuelle temperaturen aus den Bettakomben</h3>
+<h3>Aktuelle Temperaturen aus den Bettakomben</h3>
 
 <?php
 $con=mysqli_connect("localhost","dt_logger","lololo","digitemp");
@@ -124,13 +129,15 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-
-echo '<table border="1">';
+// echo '<table border="1" cellspacing="1" class="tablesorter" >';
+ echo '<table border="1" >';
+echo '<thead>';
 echo '<tr>';
 echo '<th>Sensor</th>';
 echo '<th>Temperatur</th>';
 echo '<th>Letzte Messung</th>';
 echo '</tr>';
+echo '</thead>';
 
 $result = mysqli_query($con,"SELECT * FROM sensors order by name asc");
 
@@ -160,6 +167,15 @@ while($row = mysqli_fetch_array($result))
 mysqli_close($con);
 ?>
 
+<script type="text/javascript">
+$(document).ready(function() { 
+    // call the tablesorter plugin 
+    $("table").tablesorter({ 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0],[2,0]] 
+    }); 
+ }); 
+ </script>
 
 <a href="#"><img src="img/temp_all.png" border="1" alt="BILD"></a>
 
@@ -180,8 +196,6 @@ mysqli_close($con);
 
 
 
-<br></br><br></br>
-<a href="#"><img src="img/snap.jpg" border="1" alt="BILD"></a>
 
 </div>
 </div>
