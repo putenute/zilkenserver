@@ -1,0 +1,2 @@
+# MIN   HOUR   MDAY  MON  DOW   COMMAND 
+*/1 * * * * root /var/stromding/stromding_poll.pl > /var/log/stromding.log
