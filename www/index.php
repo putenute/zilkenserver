@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!<DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -73,6 +73,8 @@
 <div class="col-lg-4">
 <br><br><br><br>
 
+<a name="top"></a> 
+
 
 
 <h3>Heizung f&uuml;r Wasserwechsel-Tonne </h3>
@@ -116,8 +118,38 @@ else
 ?>
 
 <h3>Aktueller Stromverbrauch in den Bettakomben</h3>
-<a href="#"><img src="img/snap.jpg" border="5" alt="BILD"></a>Watt
+<!-- <a href="#"><img src="img/stromding.jpg" border="5" alt="BILD"></a>Watt -->
+<?php
+$con=mysqli_connect("localhost","dt_logger","lololo","digitemp");
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
 
+// echo '<table border="1" cellspacing="1" class="tablesorter" >';
+ echo '<table border="1" >';
+echo '<thead>';
+echo '<tr>';
+echo '<th>Stromverbrauch </th>';
+echo '<th>Letzte Messung</th>';
+echo '</tr>';
+echo '</thead>';
+
+$result = mysqli_query($con,"SELECT name, watt, time FROM stromding order by time desc limit 1");
+
+while($row = mysqli_fetch_array($result))
+  {
+       echo '<tr>';
+       echo '<td> '.$row['watt'].' W </td>';
+       echo '<td> '.$row['time'].' </td>';
+      echo '</tr>';
+  }
+  echo '</table>';
+
+mysqli_close($con);
+?>
+<a href="#"><img src="img/stromding.png" border="1" alt="BILD"></a>
 
 <h3>Aktuelle Temperaturen aus den Bettakomben</h3>
 
@@ -157,7 +189,7 @@ while($row = mysqli_fetch_array($result))
 
 
        echo '<tr>';
-        echo '<td> '.$name.'</td>';
+        echo '<td><a href="#'.$serial.'">'.$name.'</a></td>';
        echo '<td> '.$lasttemp.' &deg;C</td>';
        echo '<td> '.$lasttime.'</td>';
       echo '</tr>';
@@ -167,34 +199,34 @@ while($row = mysqli_fetch_array($result))
 mysqli_close($con);
 ?>
 
-<script type="text/javascript">
-$(document).ready(function() { 
-    // call the tablesorter plugin 
-    $("table").tablesorter({ 
-        // sort on the first column and third column, order asc 
-        sortList: [[0,0],[2,0]] 
-    }); 
- }); 
- </script>
 
 <a href="#"><img src="img/temp_all.png" border="1" alt="BILD"></a>
-
-
-
-<a name="1" href="#"><img src="img/temp1.png" border="1" alt="BILD1"></a>
-<a href="#"><img src="img/temp2.png" border="1" alt="BILD2"></a>
-<a href="#"><img src="img/temp3.png" border="1" alt="BILD3"></a>
-<a href="#"><img src="img/temp4.png" border="1" alt="BILD4"></a>
-<a href="#"><img src="img/temp5.png" border="1" alt="BILD5"></a>
-<a href="#"><img src="img/temp6.png" border="1" alt="BILD6"></a>
-<a href="#"><img src="img/temp7.png" border="1" alt="BILD7"></a>
-<a href="#"><img src="img/temp8.png" border="1" alt="BILD8"></a>
-<a href="#"><img src="img/temp9.png" border="1" alt="BILD9"></a>
-<a href="#"><img src="img/temp10.png" border="1" alt="BILD10"></a>
-<a href="#"><img src="img/temp11.png" border="1" alt="BILD11"></a>
-<a href="#"><img src="img/temp12.png" border="1" alt="BILD12"></a>
-
-
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28161927050000BB" href="#"><img src="img/28161927050000BB.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="2866B512050000F8" href="#"><img src="img/2866B512050000F8.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28A7ACEF04000098" href="#"><img src="img/28A7ACEF04000098.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28C4A027050000AD" href="#"><img src="img/28C4A027050000AD.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28170C2705000022" href="#"><img src="img/28170C2705000022.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="287AA2270500003A" href="#"><img src="img/287AA2270500003A.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28A8BC88040000D6" href="#"><img src="img/28A8BC88040000D6.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28CFA8EE0400006A" href="#"><img src="img/28CFA8EE0400006A.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="284029EF0400002D" href="#"><img src="img/284029EF0400002D.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="287EA6EE040000F8" href="#"><img src="img/287EA6EE040000F8.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="284174EF04000063" href="#"><img src="img/284174EF04000063.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="28C4728704000072" href="#"><img src="img/28C4728704000072.png" border="1" alt "Temperaturbild"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="openweatherAPI" href="#"><img src="img/openweatherAPI.png.png" border="1" alt "Temperaturbild"></a>
 
 
 </div>

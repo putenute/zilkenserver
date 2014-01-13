@@ -1,2 +1,0 @@
-# MIN   HOUR   MDAY  MON  DOW   COMMAND 
-*/10 * * * * root uvccapture -m && mogrify -crop 53x42+60+75 snap.jpg && mv snap.jpg /var/www/img/
