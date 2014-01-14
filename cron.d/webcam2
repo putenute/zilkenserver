@@ -1,0 +1,2 @@
+# MIN   HOUR   MDAY  MON  DOW   COMMAND 
+*/1 * * * * root wget http://192.168.2.22/image/jpeg.cgi && mv jpeg.cgi /var/www/img/webcam2.jpg

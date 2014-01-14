@@ -75,9 +75,19 @@
 
 <a name="top"></a> 
 
+<h3> Inhaltsverzeichnis</h3>
+<br>
+<a href="#heat"><h4>Zur Heizung f&uuml;r Wasserwechsel-Tonne</h4></a>
+<a href="#strom"><h4>Zum Stromverbrauch<h4></a>
+<a href="#temp"><h4>Zu den aktuellen Temperaturen</h4></a>
+<a href="#webcam"><h4>Zu den Webcams</h4></a>
+
+<hr>
+<br><br><br><br>
 
 
-<h3>Heizung f&uuml;r Wasserwechsel-Tonne </h3>
+<a name="heat"></a>
+<h3 >Heizung f&uuml;r Wasserwechsel-Tonne </h3>
 
 <?php
 
@@ -116,7 +126,10 @@ else
 
 
 ?>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<br><br>
 
+<a name="strom"></a>
 <h3>Aktueller Stromverbrauch in den Bettakomben</h3>
 <!-- <a href="#"><img src="img/stromding.jpg" border="5" alt="BILD"></a>Watt -->
 <?php
@@ -152,8 +165,12 @@ while($row = mysqli_fetch_array($result))
 mysqli_close($con);
 ?>
 <a href="#"><img src="img/stromding.png" border="1" alt="BILD"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<br><br>
 
-<h3>Aktuelle Temperaturen aus den Bettakomben</h3>
+
+<a name="temp"></a>
+<h3 >Aktuelle Temperaturen aus den Bettakomben</h3>
 
 <?php
 $con=mysqli_connect("localhost","dt_logger","lololo","digitemp");
@@ -200,6 +217,7 @@ while($row = mysqli_fetch_array($result))
 
 mysqli_close($con);
 ?>
+<a href="#top">Zur&uuml;ck nach oben</a>
 
 
 <a name="28161927050000BB" href="#"><img src="img/28161927050000BB.png" border="1" alt "Temperaturbild"></a>
@@ -226,8 +244,16 @@ mysqli_close($con);
 <a href="#top">Zur&uuml;ck nach oben</a>
 <a name="28C4728704000072" href="#"><img src="img/28C4728704000072.png" border="1" alt "Temperaturbild"></a>
 <a href="#top">Zur&uuml;ck nach oben</a>
-<a name="openweatherAPI" href="#"><img src="img/openweatherAPI.png.png" border="1" alt "Temperaturbild"></a>
+<a name="openweatherAPI" href="#"><img src="img/openweatherAPI.png" border="1" alt "Temperaturbild"></a>
 
+<br><br>
+
+<a name="webcam"></a>
+<h3 >Webcam-Bilder aus den Battakomben</h3>
+<a name="webcam1" href="#"><img src="img/webcam1.jpg" border="1" alt "Webcam 1"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
+<a name="webcam2" href="#"><img src="img/webcam2.jpg" border="1" alt "Webcam 2"></a>
+<a href="#top">Zur&uuml;ck nach oben</a>
 
 </div>
 </div>
