@@ -15,9 +15,13 @@ my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass")
           or die "I cannot connect to dbi:mysql:$db_name as $db_user - $DBI::errstr\n";
 
 
+my $cmdString = "fswebcam -r 640x480 -S 15 --jpeg 95 save /tmp/stromding.jpg -q";
+$cmdString .= "&&  mogrify -crop 210x100+290+150 /tmp/stromding.jpg";
+$cmdString .= "&& cp /tmp/stromding.jpg  /var/www/img/";
+$cmdString .= "&& ssocr  grayscale --number-digits=3 /var/www/img/stromding.jpg |";
 
 
-open( STROMDING, "fswebcam -r 640x480 -S 15 --jpeg 95 save /tmp/stromding.jpg -q && mogrify -crop 190x90+290+200 /tmp/stromding.jpg && cp /tmp/stromding.jpg  /var/www/img/ && ssocr  grayscale --number-digits=3 /var/www/img/stromding.jpg |");
+open( STROMDING, $cmdString);
 
 
 while( <STROMDING> )

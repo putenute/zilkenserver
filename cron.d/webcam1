@@ -1,0 +1,2 @@
+# MIN   HOUR   MDAY  MON  DOW   COMMAND 
+*/1 * * * * root fswebcam -r 640x480 -S 15 -d /dev/video1 --jpeg 95 save /var/www/img/webcam1.jpg -q

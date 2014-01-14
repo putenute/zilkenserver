@@ -133,6 +133,7 @@ echo '<thead>';
 echo '<tr>';
 echo '<th>Stromverbrauch </th>';
 echo '<th>Letzte Messung</th>';
+echo '<th>Strommessger&auml;t</th>';
 echo '</tr>';
 echo '</thead>';
 
@@ -143,6 +144,7 @@ while($row = mysqli_fetch_array($result))
        echo '<tr>';
        echo '<td> '.$row['watt'].' W </td>';
        echo '<td> '.$row['time'].' </td>';
+       echo '<td> <a href="img/stromding.jpg">Bild</a> </td>';
       echo '</tr>';
   }
   echo '</table>';
@@ -200,8 +202,6 @@ mysqli_close($con);
 ?>
 
 
-<a href="#"><img src="img/temp_all.png" border="1" alt="BILD"></a>
-<a href="#top">Zur&uuml;ck nach oben</a>
 <a name="28161927050000BB" href="#"><img src="img/28161927050000BB.png" border="1" alt "Temperaturbild"></a>
 <a href="#top">Zur&uuml;ck nach oben</a>
 <a name="2866B512050000F8" href="#"><img src="img/2866B512050000F8.png" border="1" alt "Temperaturbild"></a>

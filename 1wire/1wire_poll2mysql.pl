@@ -69,7 +69,7 @@ my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass")
 # Read the output from digitemp
 # Output in form SerialNumber<SPACE>Temperature in Fahrenheit
 
-open( DIGITEMP, "digitemp_DS9097U -vv -i -c digitemp.conf -s /dev/ttyUSB1 && digitemp_DS9097U -c digitemp.conf -a -q USB  -o\"%R %.2C\" |");
+open( DIGITEMP, "digitemp_DS9097U -vv -i -c digitemp.conf -s /dev/ttyUSB0 && digitemp_DS9097U -c digitemp.conf -a -q USB  -o\"%R %.2C\" |");
 
 while( <DIGITEMP> )
 {
