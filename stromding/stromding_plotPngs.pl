@@ -15,7 +15,13 @@ my $db_pass     = "lololo";
 my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass") or die "I cannot connect to dbi:mysql:$db_name as $db_user - $DBI::errstr\n";
 
 
-my $queryString= 'select name, time, watt from stromding;';
+  #`power` WATTL,
+  #`voltage` VOLT ,
+  #`current` AMPERE,
+  #`energy` kWH,
+
+
+my $queryString= 'select name, time, power, voltage,current, energy from stromding;';
 my $query = $dbh->prepare($queryString);
 $query->execute() or die $query->err_str;
 
@@ -23,9 +29,8 @@ my $unsortedTimes = ();
 my $wattByTime = {};
 my $name = "";
 while (my $res = $query->fetchrow_hashref() ) {
-	#$wattByTime->{$res->{time}}->{$res->{name}} = $res->{watt};
 	$name = $res->{name};
-	$wattByTime->{$res->{time}} = $res->{watt};
+	$wattByTime->{$res->{time}} = $res->{power};
 	$unsortedTimes->{$res->{time}} = 1;
 }
 my @sortedTimes  = sort{ $a cmp $b } keys %$unsortedTimes;
@@ -66,17 +71,18 @@ print GNUPLOT 'set xdata time'."\n";
 print GNUPLOT 'set timefmt "%Y-%m-%d %H:%M:%S"'."\n";
 print GNUPLOT 'set format x "%d%h \n %H:%M"'."\n";
 print GNUPLOT 'set xrange [ "'.$minDate.'" : "'.$maxDate.'" ]'."\n";
-print GNUPLOT 'set autoscale y '."\n";
+#print GNUPLOT 'set autoscale y '."\n";
 print GNUPLOT 'set yrange [ '.($minWatt).' : '.($maxWatt).' ]'."\n";
+print GNUPLOT 'set ytics auto'."\n";
 print GNUPLOT 'set ylabel "Watt"'."\n";
-print GNUPLOT '#set autoscale y2 '."\n";
-print GNUPLOT '#set y2range [ '.($minWatt).' : '.($maxWatt).' ]'."\n";
+print GNUPLOT 'set y2range [ '.($minWatt).' : '.($maxWatt).' ]'."\n";
+print GNUPLOT 'set y2tics auto'."\n";
 print GNUPLOT 'set y2label "Watt"'."\n";
 print GNUPLOT 'set mxtics 4'."\n";
 print GNUPLOT 'set mytics 2'."\n";
 print GNUPLOT 'set grid x y'."\n";
 print GNUPLOT 'set xlabel "Datum und Uhrzeit"'."\n";
-print GNUPLOT '#set title  "'.$title.'"'."\n";
+print GNUPLOT 'set title  "'.$title.'"'."\n";
 print GNUPLOT 'set output "'.$pngFilename.'"'."\n";
 print GNUPLOT 'set style fill solid border -1'."\n";
 print GNUPLOT 'set style line 1 lt 2 lw 1'."\n";
@@ -85,7 +91,7 @@ print GNUPLOT '#set sample 45'."\n";
 print GNUPLOT 'set terminal png size 800,400'."\n";
 print GNUPLOT 'set terminal png'."\n";
 
-my $plotString = 'plot "'.$csvFilename.'" using 1:2 title "'.$title.'" with lines ';
+my $plotString = 'plot "'.$csvFilename.'" using 1:2 with lines notitle'; #title "'.$title.'" with lines ';
 
 print GNUPLOT $plotString."\n";
 

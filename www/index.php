@@ -129,6 +129,8 @@ else
 <a href="#top">Zur&uuml;ck nach oben</a>
 <br><br>
 
+
+
 <a name="strom"></a>
 <h3>Aktueller Stromverbrauch in den Bettakomben</h3>
 <!-- <a href="#"><img src="img/stromding.jpg" border="5" alt="BILD"></a>Watt -->
@@ -140,33 +142,19 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-// echo '<table border="1" cellspacing="1" class="tablesorter" >';
- echo '<table border="1" >';
-echo '<thead>';
-echo '<tr>';
-echo '<th>Stromverbrauch </th>';
-echo '<th>Letzte Messung</th>';
-echo '<th>Strommessger&auml;t</th>';
-echo '</tr>';
-echo '</thead>';
 
-$result = mysqli_query($con,"SELECT name, watt, time FROM stromding order by time desc limit 1");
-
-while($row = mysqli_fetch_array($result))
-  {
-       echo '<tr>';
-       echo '<td> '.$row['watt'].' W </td>';
-       echo '<td> '.$row['time'].' </td>';
-       echo '<td> <a href="img/stromding.jpg">Bild</a> </td>';
-      echo '</tr>';
-  }
-  echo '</table>';
+$result = mysqli_query($con,"SELECT name, power, time FROM stromding order by time desc limit 1");
+while($row = mysqli_fetch_array($result))  {
+   echo 'Stromverbrauch:  '.$row['power'].' W, gemessen am '.$row['time'].'.';
+}
 
 mysqli_close($con);
 ?>
 <a href="#"><img src="img/stromding.png" border="1" alt="BILD"></a>
-<a href="#top">Zur&uuml;ck nach oben</a>
+ <a href="#top">Zur&uuml;ck nach oben</a>
 <br><br>
+
+
 
 
 <a name="temp"></a>
@@ -247,6 +235,11 @@ mysqli_close($con);
 <a name="openweatherAPI" href="#"><img src="img/openweatherAPI.png" border="1" alt "Temperaturbild"></a>
 
 <br><br>
+
+
+
+<br><br>
+
 
 <a name="webcam"></a>
 <h3 >Webcam-Bilder aus den Battakomben</h3>

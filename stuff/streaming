@@ -1,0 +1,4 @@
+http://www.slblabs.com/2012/09/26/rpi-webcam-stream/
+
+ fswebcam -r 640x480 -S 15 --jpeg 95 save home.jpg -q
+

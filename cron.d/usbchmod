@@ -1,0 +1,2 @@
+# MIN   HOUR   MDAY  MON  DOW   COMMAND 
+*/1 * * * * root chmod a+rw  /dev/bus/usb/005/* > /var/log/1wire.log

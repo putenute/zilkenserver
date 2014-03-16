@@ -1,48 +1,97 @@
-#!/usr/bin/perl -W
+#/bin/perl -e
+
+use strict;
+use warnings;
+use Math::Round;
+use Data::Dumper;
 
 use DBI;
-
 # Database info
 my $db_name     = "digitemp";
 my $db_user     = "dt_logger";
 my $db_pass     = "lololo";
 
 
-my $debug = 1;
 
-# Connect to the database
-my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass")
+my $login = `curl -s -d "pw=lololo" http://192.168.2.166/login.html`;
+
+my $voltage=-1;
+my $current=-1;
+my $power=-1;
+my $energy=-1;
+
+
+
+if( $login =~ /(mac=\ "C2426B4DDCE2")/i ){
+  
+  # Current	1.51	A	current = I /100;
+  if($login    =~ /var\ I\ \ =\ (\d+)/i){
+    $current = nearest(0.01, $1/100);
+  }
+  
+
+  #Voltage	221.0	V	voltage = V / 10;
+  if($login    =~/var\ V\ \ =\ (\d+)/i){
+    $voltage = nearest(0.1,$1/10);
+  }
+
+  #var P=197038;
+  if($login    =~/var\ P=(\d+)/i){
+    $power = nearest(1,$1/466);
+  }
+
+  #Energy	112.0	kWh	energy  = E/25600';
+  if($login    =~/var\ P=(\d+)/i){
+    $energy = nearest(0.1,$1/25600);
+  }
+  print  $power."W ".$voltage."V ".$current."A ".$energy."kWh"."\n";
+
+  #INSERT INTO DB NOW
+
+  # Connect to the database
+  my $dbh = DBI->connect("dbi:mysql:$db_name","$db_user","$db_pass")
           or die "I cannot connect to dbi:mysql:$db_name as $db_user - $DBI::errstr\n";
 
+  #| stromding | CREATE TABLE `stromding` (
+  #`id` int(11) NOT NULL AUTO_INCREMENT,
+  #`name` varchar(255) NOT NULL,
+  #`time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  #`power` float NOT NULL,
+  #`voltage` float NOT NULL,
+  #`current` float NOT NULL,
+  #`energy` float NOT NULL,
+  #PRIMARY KEY (`id`)
+  #) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
 
-my $cmdString = "fswebcam -r 640x480 -S 15 --jpeg 95 save /tmp/stromding.jpg -q";
-$cmdString .= "&&  mogrify -crop 210x100+290+150 /tmp/stromding.jpg";
-$cmdString .= "&& cp /tmp/stromding.jpg  /var/www/img/";
-$cmdString .= "&& ssocr  grayscale --number-digits=3 /var/www/img/stromding.jpg |";
 
-
-open( STROMDING, $cmdString);
-
-
-while( <STROMDING> )
-{
-#  print "$_\n" if($debug);
-  chomp;
-  my $stromverbrauch = $_;
-  print "stromverbrauch = $_\n";
- #stromding | CREATE TABLE `stromding` (
- # `id` int(11) NOT NULL AUTO_INCREMENT,
- # `name` varchar(255) NOT NULL,
- # `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
- # `watt` int(11) NOT NULL,
- # PRIMARY KEY (`id`)
-
-  my $sql="INSERT INTO stromding SET name='Bettakomben',watt=$stromverbrauch";
-  print "SQL: $sql\n" if($debug);
+  my $sql="INSERT INTO stromding SET name='Bettakomben',power=$power,voltage=$voltage, current=$current,energy=$energy";
+  #print "SQL: $sql\n" if($debug);
   $dbh->do($sql) or die "Can't execute statement $sql because: $DBI::errstr";
+
+
+  $dbh->disconnect;
+
+
+
+
+
+}else {
+  die "Error during energenie login; ".Dumper($login);
+
 }
 
-close( STROMDING );
 
-$dbh->disconnect;
+my $logout = `curl -s  http://192.168.2.166/login.html`;
 
+
+if( $logout =~ /(name="lForm"><div>&nbsp;EnerGenie Web:&nbsp;putenute)/i ){
+  #print "Logout successfull. \n";
+
+}else {
+  die "Error during energenie logout; ".Dumper($logout);
+
+}
+
+
+
+1;
