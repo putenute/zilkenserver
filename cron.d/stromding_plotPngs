@@ -1,3 +1,3 @@
 # MIN   HOUR   MDAY  MON  DOW   COMMAND 
-*/5 * * * * root /var/stromding/stromding_plotPngs.pl > /var/log/stromding.log
+*/1 * * * * root /var/stromding/stromding_plotPngs.pl > /var/log/stromding.log
 

@@ -27,7 +27,6 @@
 
   </head>
 <!-- NAVBAR
-================================================== -->
   <body>
     <div class="navbar-wrapper">
       <div class="container">
@@ -48,6 +47,7 @@
                 <li class="active"><a href="/">Startseite</a></li>
                 <li><a href="#about">Impressum</a></li>
                 <li><a href="#contact">Kontakt</a></li>
+================================================== -->
 <!--                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -68,13 +68,16 @@
       </div>
     </div>
 
-
+<!--
 <div class="row">
 <div class="col-lg-4">
-<br><br><br><br>
+-->
+<h1>Julias und Olis Bettakomben - Homepage</h1>
+<br><br>
+
 
 <a name="top"></a> 
-
+<!--
 <h3> Inhaltsverzeichnis</h3>
 <br>
 <a href="#heat"><h4>Zur Heizung f&uuml;r Wasserwechsel-Tonne</h4></a>
@@ -84,7 +87,7 @@
 
 <hr>
 <br><br><br><br>
-
+-->
 
 <a name="heat"></a>
 <h3 >Heizung f&uuml;r Wasserwechsel-Tonne </h3>
@@ -105,7 +108,7 @@ $state = exec("python /var/www/relais/drcontrol.py -d DAE000OP -r1 -c state");
 
 if ( $state == "OFF") 
 {
-  echo "Wassertonnen-Heizung ist aus. \n";
+ #echo "Wassertonnen-Heizung ist aus. ";
   echo '<form action="" method="post">';
   echo '  <button class="heizungsbutton" type="submit" name="1_on">Heizung anschalten</button>';
   echo '</form> ';
@@ -114,7 +117,7 @@ if ( $state == "OFF")
 }
 elseif ( $state == "ON")
  {
-  echo "Wassertonnen-Heizung ist an. \n";
+  #echo "Wassertonnen-Heizung ist an. ";
   echo '<form action="" method="post">';
   echo '  <button class="heizungsbutton" type="submit" name="1_off">Heizung ausschalten</button>';
   echo '</form> ';
@@ -126,7 +129,7 @@ else
 
 
 ?>
-<a href="#top">Zur&uuml;ck nach oben</a>
+<br><a href="#top">Zur&uuml;ck nach oben</a>
 <br><br>
 
 
@@ -150,8 +153,9 @@ while($row = mysqli_fetch_array($result))  {
 
 mysqli_close($con);
 ?>
+<br>
 <a href="#"><img src="img/stromding.png" border="1" alt="BILD"></a>
- <a href="#top">Zur&uuml;ck nach oben</a>
+<br> <a href="#top">Zur&uuml;ck nach oben</a>
 <br><br>
 
 
@@ -178,7 +182,7 @@ echo '<th>Letzte Messung</th>';
 echo '</tr>';
 echo '</thead>';
 
-$result = mysqli_query($con,"SELECT * FROM sensors order by name asc");
+$result = mysqli_query($con,"SELECT * FROM sensors where isActive = 1 order by name asc");
 
 while($row = mysqli_fetch_array($result))
   {
@@ -203,9 +207,24 @@ while($row = mysqli_fetch_array($result))
   }
   echo '</table>';
 
+
+$result2 = mysqli_query($con,"SELECT * FROM sensors where isActive = 1 order by name asc");
+
+while($row = mysqli_fetch_array($result2))
+{
+$seriall = $row['serial'];
+$namel = $row['name'];
+echo '<a name="'.$seriall.'" href="#"><img src="img/'.$seriall.'.png" border="1" alt "'.$namel.'"></a>';
+#echo '<a href="#top">Zur&uuml;ck nach oben</a>';
+
+}
+
 mysqli_close($con);
 ?>
+<br>
 <a href="#top">Zur&uuml;ck nach oben</a>
+
+<!-- 
 
 
 <a name="28161927050000BB" href="#"><img src="img/28161927050000BB.png" border="1" alt "Temperaturbild"></a>
@@ -236,21 +255,22 @@ mysqli_close($con);
 
 <br><br>
 
-
+!-->
 
 <br><br>
 
 
 <a name="webcam"></a>
-<h3 >Webcam-Bilder aus den Battakomben</h3>
-<a name="webcam1" href="#"><img src="img/webcam1.jpg" border="1" alt "Webcam 1"></a>
+<h3 >Webcam-Bilder aus den Bettakomben</h3>
+<!-- <a name="webcam1" href="#"><img src="img/webcam1.jpg" border="1" alt "Webcam 1"></a> 
 <a href="#top">Zur&uuml;ck nach oben</a>
+-->
 <a name="webcam2" href="#"><img src="img/webcam2.jpg" border="1" alt "Webcam 2"></a>
-<a href="#top">Zur&uuml;ck nach oben</a>
-
+<br> <a href="#top">Zur&uuml;ck nach oben</a>
+<!--
 </div>
 </div>
-
+-->
 
       <!-- FOOTER -->
       <footer>

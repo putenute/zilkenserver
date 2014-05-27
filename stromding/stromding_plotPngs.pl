@@ -5,6 +5,7 @@ use GD;
 use DBI;
 use Data::Dumper;
 use Date::Simple;
+use  DateTime::Format::MySQL;
 
 # Database info
 my $db_name     = "digitemp";
@@ -41,8 +42,18 @@ my @sortedTimes  = sort{ $a cmp $b } keys %$unsortedTimes;
 #=================================================================
 #=================================================================
 #1. write csv file with all sensors	
-my $minDate =$sortedTimes[0];
+#my $minDate =$sortedTimes[0];
 my $maxDate =$sortedTimes[$#sortedTimes];
+
+#letzte 7 Tage nur 
+my $minDateDays = 7;
+my $dt =  DateTime::Format::MySQL->parse_datetime($maxDate);
+$dt->subtract(days => $minDateDays);
+my $date = $dt->ymd;
+my $time = $dt->hms;
+my $minDate = $date . " ". $time;
+
+
 my $minWatt = 0,
 my $maxWatt = 0,
 my $numEntries = 0;
@@ -58,7 +69,7 @@ foreach my $time (@sortedTimes){
 }	
 close CSV;
 $maxWatt += 20;
-	
+$maxWatt = 1000 if ($maxWatt > 1000);	
 #2. write gnuplot file for csv file	
 my $gnuplotFilename="/tmp/stromding.gp";
 my $pngFilename = "/tmp/stromding.png";

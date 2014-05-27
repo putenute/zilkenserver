@@ -87,10 +87,24 @@ while( <DIGITEMP> )
     next;
   }
 
+  my $isActive;
+  print "NOW: $serialnumber\n";
+  my $ssql = "SELECT * from sensors where serial='".$serialnumber."'";
+  my $query = $dbh->prepare($ssql);
+  $query->execute() or die $query->err_str;
+  while (my $res = $query->fetchrow_hashref() ) {
+    $isActive = "1" if $res->{isActive} eq "1";
 
-  my $sql="INSERT INTO digitemp SET SerialNumber='$serialnumber',temp=$temperature";
-  print "SQL: $sql\n" if($debug);
-  $dbh->do($sql) or die "Can't execute statement $sql because: $DBI::errstr";
+  }
+  if(!defined($isActive)){
+    print "Sensor $serialnumber: NOT active\n";
+
+  }else{
+
+    my $sql="INSERT INTO digitemp SET SerialNumber='$serialnumber',temp=$temperature";
+    print "SQL: $sql\n" if($debug);
+    $dbh->do($sql) or die "Can't execute statement $sql because: $DBI::errstr";
+  }
 }
 
 close( DIGITEMP );

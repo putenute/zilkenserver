@@ -5,6 +5,7 @@ use GD;
 use DBI;
 use Data::Dumper;
 use Date::Simple;
+use DateTime::Format::MySQL;
 
 # Database info
 my $db_name     = "digitemp";
@@ -42,12 +43,20 @@ my @sortedTimes  = sort{ $a cmp $b } keys %$unsortedTimes;
 #=================================================================
 #=================================================================
 #1. write csv file with all sensors	
-my $minDate =$sortedTimes[0];
 my $maxDate =$sortedTimes[$#sortedTimes];
 my $minTemp = 30;
 my $maxTemp = 0,
 my $numEntries = 0;
 my $csvFilename ='/tmp/temp_all.dat';
+
+
+#letzte 7 Tage nur 
+my $minDateDays = 7;
+my $dt =  DateTime::Format::MySQL->parse_datetime($maxDate);
+$dt->subtract(days => $minDateDays);
+my $date = $dt->ymd;
+my $time = $dt->hms;
+my $minDate = $date . " ". $time;
 open (CSV, ">$csvFilename");
 foreach my $time (@sortedTimes){
 	print CSV "$time,";
@@ -153,8 +162,14 @@ foreach my $sensor (keys %$tempBySensors){
 		$maxTemp = $tempBySensors->{$sensor}->{$time} if($tempBySensors->{$sensor}->{$time}>$maxTemp);
 		$numEntries++;
 	}
-	my $minDate1 =$sortedTimes1[0];
 	my $maxDate1 =$sortedTimes1[$#sortedTimes1];
+	#letzte 7 Tage nur 
+	my $minDateDays = 7;
+	my $dt =  DateTime::Format::MySQL->parse_datetime($maxDate1);
+	$dt->subtract(days => $minDateDays);
+	my $date = $dt->ymd;
+	my $time = $dt->hms;
+	my $minDate1 = $date . " ". $time;
 	
 	close CSV;
 	
